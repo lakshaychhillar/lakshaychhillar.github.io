@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Birthday Surprise</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0; padding: 20px; background: #f7f0f7; text-align: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .container {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5em;
+    margin: 1em auto;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  }
+  h1 {
+    color: #7a4e8c;
+  }
+  .button-group {
+    margin-top: 1.5rem;
+  }
+  button {
+    padding: 0.75em 1.5em;
+    margin: 0 0.5em;
+    border: none;
+    border-radius: 10px;
+    background-color: #9145b6;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #702c97;
+  }
+  #videoContainer, #sarcasmContainer {
+    display: none;
+  }
+  iframe {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-top: 1em;
+    height: 240px;
+  }
+</style>
+</head>
+<body>
+
+<div id="mainContainer" class="container">
+  <h1>Ready for the surprise?</h1>
+  <div class="button-group">
+    <button id="btnYes" type="button">Yes</button>
+    <button id="btnNo" type="button">No</button>
+  </div>
+</div>
+
+<div id="videoContainer" class="container">
+  <iframe width="100%" height="240" src="https://www.youtube-nocookie.com/embed/fRwjwCYzYeo" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+
+<div id="sarcasmContainer" class="container">
+  <h1>Surprise! You have to see it anyways 😏</h1>
+  <div class="button-group">
+    <button id="sarcasmYes" type="button">Yes</button>
+    <button id="sarcasmAlsoYes" type="button">Yes</button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const mainContainer = document.getElementById('mainContainer');
+    const videoContainer = document.getElementById('videoContainer');
+    const sarcasmContainer = document.getElementById('sarcasmContainer');
+
+    const btnYes = document.getElementById('btnYes');
+    const btnNo = document.getElementById('btnNo');
+    const sarcasmYes = document.getElementById('sarcasmYes');
+    const sarcasmAlsoYes = document.getElementById('sarcasmAlsoYes');
+
+    btnYes.addEventListener('click', () => {
+      mainContainer.style.display = 'none';
+      sarcasmContainer.style.display = 'none';
+      videoContainer.style.display = 'block';
+    });
+
+    btnNo.addEventListener('click', () => {
+      mainContainer.style.display = 'none';
+      videoContainer.style.display = 'none';
+      sarcasmContainer.style.display = 'block';
+    });
+
+    const playVideoFromSarcasm = () => {
+      sarcasmContainer.style.display = 'none';
+      videoContainer.style.display = 'block';
+    };
+
+    sarcasmYes.addEventListener('click', playVideoFromSarcasm);
+    sarcasmAlsoYes.addEventListener('click', playVideoFromSarcasm);
+  });
+</script>
+
+</body>
+</html>
