@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Birthday Surprise</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at center, #8e44ad, #5e3370);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #confetti {
+      position: fixed;
+      top:0; left:0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events:none;
+      overflow: visible;
+      z-index: 0;
+    }
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #ffd700;
+      opacity: 0.9;
+      border-radius: 3px;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    .container {
+      position: relative;
+      background: white;
+      border-radius: 15px;
+      padding: 1.5em;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 0 20px 5px rgba(142, 68, 173, 0.7);
+      text-align: center;
+      z-index: 1;
+    }
+    h1 {
+      color: #7a4e8c;
+      margin-top: 0;
+    }
+    .button-group {
+      margin-top: 1.5rem;
+    }
+    button {
+      padding: 0.75em 1.5em;
+      margin: 0 0.5em;
+      border: none;
+      border-radius: 10px;
+      background-color: #9145b6;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover{
+      background-color: #702c97;
+    }
+    #videoContainer, #sarcasmContainer {
+      display: none;
+    }
+    iframe {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-top: 1em;
+      height: 240px;
+    }
+  </style>
+</head>
+<body>
+  <div id="confetti"></div>
+
+  <div id="mainContainer" class="container">
+    <h1>Ready for the surprise?</h1>
+    <div class="button-group">
+      <button id="btnYes" type="button">Yes</button>
+      <button id="btnNo" type="button">No</button>
+    </div>
+  </div>
+
+  <div id="videoContainer" class="container">
+    <iframe width="100%" height="240"
+      src="https://www.youtube-nocookie.com/embed/tptRL3qssDM?si=EqsMCNwcB5ODBBiu"
+      frameborder="0"
+      allow="autoplay; fullscreen; picture-in-picture"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen></iframe>
+  </div>
+
+  <div id="sarcasmContainer" class="container">
+    <h1>Surprise! You have to see it anyways 😏</h1>
+    <div class="button-group">
+      <button id="sarcasmYes" type="button">Yes</button>
+      <button id="sarcasmAlsoYes" type="button">Yes</button>
+    </div>
+  </div>
+
+  <script>
+    const confetti = document.getElementById('confetti');
+    const colors = ['#ffc107', '#ffdd57', '#ffec8b', '#ffd700', '#fff176'];
+
+    function randomFromInterval(min, max) {
+      return Math.random() * (max-min) + min;
+    }
+
+    for(let i=0; i<40; i++){
+      const piece = document.createElement('div');
+      piece.classList.add('confetti-piece');
+      piece.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+      piece.style.left = ${Math.random()*100}vw;
+      piece.style.width = ${randomFromInterval(6,10)}px;
+      piece.style.height = ${randomFromInterval(6,10)}px;
+      piece.style.animationDuration = ${randomFromInterval(5,10)}s;
+      piece.style.animationDelay =${randomFromInterval(0,10)}s;
+      confetti.appendChild(piece);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const mainContainer = document.getElementById('mainContainer');
+      const videoContainer = document.getElementById('videoContainer');
+      const sarcasmContainer = document.getElementById('sarcasmContainer');
+
+      const btnYes = document.getElementById('btnYes');
+      const btnNo  = document.getElementById('btnNo');
+      const sarcasmYes = document.getElementById('sarcasmYes');
+      const sarcasmAlsoYes = document.getElementById('sarcasmAlsoYes');
+
+      btnYes.addEventListener('click', () => {
+        mainContainer.style.display = 'none';
+        sarcasmContainer.style.display = 'none';
+        videoContainer.style.display = 'block';
+      });
+
+      btnNo.addEventListener('click', () => {
+        mainContainer.style.display = 'none';
+        videoContainer.style.display = 'none';
+        sarcasmContainer.style.display = 'block';
+      });
+
+      function playVideo(){
+        sarcasmContainer.style.display = 'none';
+        videoContainer.style.display = 'block';
+      }
+      sarcasmYes.addEventListener('click', playVideo);
+      sarcasmAlsoYes.addEventListener('click', playVideo);
+    });
+  </script>
+</body>
+</html>
